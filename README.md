@@ -171,41 +171,50 @@ EDIS/
 
 ---
 
-## 🚀 How to Run Project
+## 🌍 Live Demo
 
-### **Prerequisites**
-- **Python 3.8+** installed
-- **Node.js 16+** installed
-- **Git** for version control
+**🚀 Deployed Application**: [https://edis.vercel.app](https://edis.vercel.app)
 
-### **Step 1: Install Backend Dependencies**
+**📊 Backend API**: [https://edis-backend.onrender.com](https://edis-backend.onrender.com)
+
+---
+
+## 🚀 Deployment Instructions
+
+### **Backend Deployment (Render)**
+1. **Connect GitHub Repository** to [Render](https://render.com/)
+2. **Select Repository**: `sanjanamali17/EDIS`
+3. **Configure Service**:
+   - **Environment**: Python
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port 10000`
+   - **Health Check**: `/health`
+4. **Set Environment Variables**:
+   - `GROQ_API_KEY`: Your Groq API key
+   - `DEBUG`: `false`
+5. **Deploy**: Click "Create Web Service"
+
+### **Frontend Deployment (Vercel)**
+1. **Connect GitHub Repository** to [Vercel](https://vercel.com/)
+2. **Import Repository**: `sanjanamali17/EDIS`
+3. **Configure Build**:
+   - **Framework**: Vite
+   - **Root Directory**: `EDIS_/edis-dashboard`
+   - **Build Command**: `npm install && npm run build`
+   - **Output Directory**: `dist`
+4. **Set Environment Variables**:
+   - `VITE_API_URL`: `https://edis-backend.onrender.com/api`
+5. **Deploy**: Click "Deploy"
+
+### **Environment Variables Required**
 ```bash
-# Navigate to backend directory
-cd EDIS1/backend
+# Backend (Render)
+GROQ_API_KEY=your_groq_api_key
+DEBUG=false
 
-# Install Python dependencies
-pip install fastapi uvicorn requests pandas numpy scikit-learn joblib groq python-dotenv reportlab
-
-# Start backend server
-python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+# Frontend (Vercel)
+VITE_API_URL=https://edis-backend.onrender.com/api
 ```
-
-### **Step 2: Install Frontend Dependencies**
-```bash
-# Navigate to frontend directory (new terminal)
-cd EDIS_/edis-dashboard
-
-# Install Node.js dependencies
-npm install
-
-# Start frontend development server
-npm run dev
-```
-
-### **Step 3: Access Application**
-- **Backend**: http://127.0.0.1:8000
-- **Frontend**: http://localhost:5173
-- **API Docs**: http://127.0.0.1:8000/docs
 
 ---
 

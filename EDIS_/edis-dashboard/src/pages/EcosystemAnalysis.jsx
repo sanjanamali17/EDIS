@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import "../styles/ecosystem_command_center.css";
 
-const API_BASE = "http://127.0.0.1:8000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
 
 const INDICATORS = [
   { name: "Climate Stress", key: "climate_stress", icon: "🌡️", color: "#ff6384", unit: "%" },
@@ -197,7 +197,7 @@ export default function EcosystemAnalysis({ setActive }) {
       `;
 
       console.log("Calling AI assistant API");
-      const response = await fetch("http://localhost:8000/edis/chat", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL?.replace("/api", "") || "http://localhost:8000"}/edis/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "../styles/ecosystem_map.css";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+
 export default function EcosystemIntelligenceMap() {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +18,7 @@ export default function EcosystemIntelligenceMap() {
       
       // Try to fetch from backend first
       try {
-        const response = await fetch("http://localhost:8000/api/ecosystem-map-data");
+        const response = await fetch(`${API_BASE}/ecosystem-map-data`);
         const data = await response.json();
         
         if (data.success) {

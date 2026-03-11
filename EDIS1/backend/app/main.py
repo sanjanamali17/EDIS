@@ -1,5 +1,6 @@
 # backend/app/main.py
 import numpy as np
+from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from core import vegetationstress, soilhealth, humanpressure, climate, biodiversity
 
@@ -18,7 +19,7 @@ app = FastAPI(
 )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,4 +35,17 @@ app.include_router(api_router, prefix="/api")
 def root():
     return {"message": "EDIS Backend Running. Use /docs for API documentation."}
 
+# =========================================================
+# HEALTH CHECK ENDPOINT
+# =========================================================
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "timestamp": datetime.utcnow().isoformat(),
+        "version": "1.0.0",
+        "service": "EDIS Backend"
+    }
+
+#
 #
