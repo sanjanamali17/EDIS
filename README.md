@@ -79,12 +79,6 @@ ESI = (Climate Stress × 0.25) +
 - **Risk assessment** for environmental planning
 - **Predictive analytics** for policy decisions
 
-### **🏛️ AI Policy Advisor**
-- **Evidence-based policy recommendations**
-- **Environmental impact analysis** of policies
-- **Sustainable development guidance**
-- **Regulatory compliance insights**
-- **Stakeholder-specific advice**
 
 ### **📄 Environmental Report Generator**
 - **Comprehensive environmental reports** in PDF/text format
@@ -136,7 +130,6 @@ Visualization Engine → AI Assistant → Report Generator
 
 ### **AI & Intelligence**
 - **Groq API** - LLaMA models for AI assistant
-- **OpenAI GPT** - Advanced environmental insights
 - **Custom LLM Integration** - Flexible AI model support
 
 ### **Data & Visualization**
