@@ -1,0 +1,367 @@
+# Earth Digital Immune System (EDIS) - Git Ignore File
+
+# Python Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+.ENV/
+
+# Python Cache Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config/
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mkdocs
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# Node.js Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Node.js Build Output
+dist/
+build/
+.next/
+
+# Node.js Environment Variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Package Files
+*.tgz
+*.tar.gz
+
+# Runtime Data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage Directory
+coverage/
+*.lcov
+
+# nyc Test Coverage
+.nyc_output
+
+# Grunt Intermediate Storage
+.grunt
+
+# Bower Dependency Directory
+bower_components
+
+# node-waf Configuration
+.lock-wscript
+
+# Compiled Binary Addons
+build/Release
+
+# Dependency Directories
+jspm_packages/
+
+# TypeScript Cache
+*.tsbuildinfo
+
+# Optional NPM Cache Directory
+.npm
+
+# Optional ESLint Cache
+.eslintcache
+
+# Microbundle Cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL History
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity File
+.yarn-integrity
+
+# dotenv Environment Variables
+.env
+.env.test
+.env.production
+.env.development
+
+# parcel-bundler Cache
+.cache
+.parcel-cache
+
+# Next.js Build Output
+.next
+
+# Nuxt.js Build / Generate Output
+.nuxt
+dist
+
+# Gatsby Files
+.cache/
+public
+
+# Storybook Build Outputs
+.out
+.storybook-out
+
+# Temporary Folders
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Log Files
+*.log
+logs/
+*.log.*
+
+# Editor Directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Large Data Files and Datasets
+*.csv
+*.xlsx
+*.xls
+*.json
+*.parquet
+*.hdf5
+*.h5
+*.pkl
+*.pickle
+*.joblib
+*.model
+*.weights
+*.bin
+
+# Keep small config files but ignore large datasets
+!config.json
+!package.json
+!requirements.txt
+
+# Machine Learning Models (can be large)
+models/
+*.model
+*.pkl
+*.joblib
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# PyTorch
+*.pth
+*.pt
+
+# TensorFlow
+*.pb
+*.ckpt
+
+# Hugging Face
+*.safetensors
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Weights & Biases
+wandb/
+
+# Compressed Files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Git
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+
+# GitHub
+.github/
+
+# Documentation Build
+docs/_build/
+site/
+
+# pytest
+.pytest_cache/
+.cache
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pyre
+.pyre/
+
+# Security
+*.pem
+*.key
+*.crt
+*.p12
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache Directories
+.cache/
+.sass-cache/
+.eslintcache
+.stylelintcache
+
+# Build Artifacts
+build/
+dist/
+out/
+
+# Testing
+coverage/
+.nyc_output/
+junit.xml
+
+# Profiling
+*.prof
+
+# Local Configuration
+config.local.js
+config.local.py
+settings.local.py
+
+# Documentation
+docs/build/
+
+# Keep important files but ignore their content
+!README.md
+!requirements.txt
+!package.json
+!.gitignore
+!LICENSE

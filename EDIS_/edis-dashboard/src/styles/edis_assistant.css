@@ -1,0 +1,113 @@
+.edis-chat-layout {
+  display: flex;
+  height: 100vh;
+  background: #f5f7fb;
+}
+
+.chat-sidebar {
+  width: 260px;
+  background: #0f172a;
+  color: white;
+  padding: 16px;
+}
+
+.chat-sidebar h3 {
+  margin-bottom: 12px;
+}
+
+.chat-item {
+  padding: 10px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #1e293b;
+}
+
+.chat-item.active {
+  background: #38bdf8;
+  color: #020617;
+}
+
+.clear-chat-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 6px;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.clear-chat-btn:hover {
+  background: #b91c1c;
+}
+
+.edis-chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-window {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.chat-message {
+  margin-bottom: 14px;
+  display: flex;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.assistant {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 65%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  line-height: 1.4;
+}
+
+.chat-message.user .bubble {
+  background: #38bdf8;
+  color: #020617;
+}
+
+.chat-message.assistant .bubble {
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.chat-input {
+  display: flex;
+  padding: 12px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  outline: none;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #0ea5e9;
+  color: white;
+  cursor: pointer;
+}
