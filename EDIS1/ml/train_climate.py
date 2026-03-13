@@ -22,7 +22,7 @@ import os
 # =========================
 # Step 1: Load Dataset
 # =========================
-DATA_PATH = r'C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\EDIS\data\finalized\climate_instability_finalized.csv'
+DATA_PATH = r'C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\FINAL_EDIS\EDIS1\data\climate_instability_finalized.csv'
 df = pd.read_csv(DATA_PATH)
 
 print("Dataset Head:\n", df.head())

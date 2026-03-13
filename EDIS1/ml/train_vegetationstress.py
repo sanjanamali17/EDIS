@@ -7,7 +7,7 @@ import joblib
 # ===============================
 # 1️⃣ LOAD DATASET
 # ===============================
-DATA_PATH = r"C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\EDIS1\data\vegetation_finalized.csv"
+DATA_PATH = r"C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\FINAL_EDIS\EDIS1\data\vegetation_finalized.csv"
 df = pd.read_csv(DATA_PATH)
 
 FEATURES = ['ndvi_norm', 'vci_norm', 'tci_norm', 'vhi_norm']

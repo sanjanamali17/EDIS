@@ -17,7 +17,7 @@ except ImportError:
 # -----------------------------
 # Groq configuration (when available)
 # -----------------------------
-DEFAULT_MODEL = "llama3-70b-8192"  # Groq's Llama3 model
+DEFAULT_MODEL = "llama-3.1-8b-instant"  # Groq's Llama3 model
 
 def get_groq_client():
     """Initialize Groq client with API key from environment"""

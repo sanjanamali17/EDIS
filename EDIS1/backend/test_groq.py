@@ -33,7 +33,7 @@ def test_groq_integration():
         
         # Test basic API call
         response = client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "user", "content": "What is ecosystem health in one sentence?"}
             ],
@@ -62,7 +62,7 @@ def test_edis_assistant():
             user_query="What are the main environmental risks here?",
             context="LOCATION: Test City\nECOSYSTEM STRESS INDEX: 65.2\nSTRESS INDICATORS:\n- Climate Stress: 45.0%\n- Soil Stress: 70.0%\n- Vegetation Stress: 60.0%\n- Human Pressure: 80.0%\n- Biodiversity Stress: 55.0%",
             chat_history=[],
-            model="llama3-70b-8192"
+            model="llama-3.1-8b-instant"
         )
         
         print("✅ EDIS Assistant working with Groq")

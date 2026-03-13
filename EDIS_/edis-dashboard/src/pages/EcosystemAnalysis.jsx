@@ -197,7 +197,7 @@ export default function EcosystemAnalysis({ setActive }) {
       `;
 
       console.log("Calling AI assistant API");
-      const response = await fetch(`${import.meta.env.VITE_API_URL?.replace("/api", "") || "http://localhost:8000"}/edis/chat`, {
+      const response = await fetch(`/api/edis/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

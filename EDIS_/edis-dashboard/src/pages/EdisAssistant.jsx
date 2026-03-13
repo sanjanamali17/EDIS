@@ -111,7 +111,7 @@ export default function EdisAssistant() {
 
       // 3️⃣ Backend call with ecosystem context and conversation history
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://localhost:8000/api"}/edis/chat`,
+        `/api/edis/chat`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

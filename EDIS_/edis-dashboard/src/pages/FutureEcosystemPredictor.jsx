@@ -100,7 +100,7 @@ const FutureEcosystemPredictor = () => {
 
   const loadAvailableCities = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL?.replace("/api", "") || "http://localhost:8000"}/predictor/available-cities`);
+      const response = await fetch(`/api/predictor/available-cities`);
       const data = await response.json();
       if (data.success) {
         setCities(data.cities);
@@ -133,7 +133,7 @@ const FutureEcosystemPredictor = () => {
 
     try {
       // Get predictions
-      const predictionResponse = await fetch(`${import.meta.env.VITE_API_URL?.replace("/api", "") || "http://localhost:8000"}/predict-ecosystem`, {
+      const predictionResponse = await fetch(`/api/predict-ecosystem`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ const FutureEcosystemPredictor = () => {
         setModelPerformance(predictionData.model_performance);
 
         // Get insights
-        const insightsResponse = await fetch(`${import.meta.env.VITE_API_URL?.replace("/api", "") || "http://localhost:8000"}/generate-insights`, {
+        const insightsResponse = await fetch(`/api/generate-insights`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

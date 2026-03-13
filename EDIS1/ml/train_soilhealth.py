@@ -10,7 +10,7 @@ import os
 # ===============================
 # PATHS
 # ===============================
-DATA_PATH = r"C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\EDIS1\data\soilhealth_finalized.csv"
+DATA_PATH = r"C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\FINAL_EDIS\EDIS1\data\soilhealth_finalized.csv"
 SAVE_DIR = r"C:\Users\SANJANA MALI\OneDrive\Attachments\Desktop\EDIS1\ml\saved_models"
 
 os.makedirs(SAVE_DIR, exist_ok=True)

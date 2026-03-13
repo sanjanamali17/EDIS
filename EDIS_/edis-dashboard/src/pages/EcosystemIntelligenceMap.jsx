@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/ecosystem_map.css";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+const API_BASE = "/api";
 
 export default function EcosystemIntelligenceMap() {
   const [cities, setCities] = useState([]);
@@ -36,7 +36,7 @@ export default function EcosystemIntelligenceMap() {
       // Use sample data if backend is not available
       const sampleData = [
         { 
-          name: "Hyderabad", 
+          city: "Hyderabad", 
           lat: 17.3850, 
           lon: 78.4867, 
           climate_stress: 45.2, 
@@ -48,7 +48,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Delhi", 
+          city: "Delhi", 
           lat: 28.6139, 
           lon: 77.2090, 
           climate_stress: 62.1, 
@@ -60,7 +60,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "High Stress"
         },
         { 
-          name: "Mumbai", 
+          city: "Mumbai", 
           lat: 19.0760, 
           lon: 72.8777, 
           climate_stress: 58.4, 
@@ -72,7 +72,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Bangalore", 
+          city: "Bangalore", 
           lat: 12.9716, 
           lon: 77.5946, 
           climate_stress: 41.3, 
@@ -84,7 +84,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Chennai", 
+          city: "Chennai", 
           lat: 13.0827, 
           lon: 80.2707, 
           climate_stress: 47.8, 
@@ -96,7 +96,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Kolkata", 
+          city: "Kolkata", 
           lat: 22.5726, 
           lon: 88.3639, 
           climate_stress: 51.6, 
@@ -108,7 +108,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Pune", 
+          city: "Pune", 
           lat: 18.5204, 
           lon: 73.8567, 
           climate_stress: 44.1, 
@@ -120,7 +120,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Jaipur", 
+          city: "Jaipur", 
           lat: 26.9124, 
           lon: 75.7873, 
           climate_stress: 56.3, 
@@ -132,7 +132,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Lucknow", 
+          city: "Lucknow", 
           lat: 26.8467, 
           lon: 80.9462, 
           climate_stress: 49.2, 
@@ -144,7 +144,7 @@ export default function EcosystemIntelligenceMap() {
           ecosystem_status: "Moderate"
         },
         { 
-          name: "Kakinada", 
+          city: "Kakinada", 
           lat: 16.9890, 
           lon: 82.2474, 
           climate_stress: 43.7, 
@@ -214,7 +214,7 @@ export default function EcosystemIntelligenceMap() {
                           transform: translate(-50%, -50%);
                           cursor: pointer;
                           z-index: 10;"
-                   data-city='${city.name}'
+                   data-city='${city.city}'
                    data-esi='${city.ecosystem_stress_index}'
                    data-status='${city.ecosystem_status}'
                    data-climate='${city.climate_stress}'
@@ -238,7 +238,7 @@ export default function EcosystemIntelligenceMap() {
                   ${color === '#16a34a' ? '✓' : color === '#f59e0b' ? '!' : '⚠'}
                 </div>
                 <div style="position: absolute; top: ${size + 5}px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; white-space: nowrap;">
-                  ${city.name}
+                  ${city.city}
                 </div>
               </div>
             `;
