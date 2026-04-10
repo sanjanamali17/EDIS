@@ -365,6 +365,14 @@
   grid-column: span 2;
 }
 
+.charts-wrapper {
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
 .viz-status {
   padding: 0.5rem 1rem;
   background: rgba(59, 130, 246, 0.1);
@@ -499,76 +507,114 @@
 }
 
 .radar-value {
-  font-size: 0.8rem;
   font-weight: 600;
   color: #e2e8f0;
 }
 
-/* Line Chart */
+/* Line Chart - Fixed and Improved */
 .line-chart {
   position: relative;
-  height: 200px;
-  background: rgba(15, 23, 42, 0.2);
-  border-radius: 8px;
-  padding: 1rem;
+  height: 300px;
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .chart-grid {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  left: 2rem;
+  right: 2rem;
+  top: 2rem;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
 }
 
 .grid-line {
   position: absolute;
   left: 0;
   right: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .grid-label {
   position: absolute;
-  left: -40px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -45px;
+  top: -8px;
   font-size: 0.8rem;
-  color: #94a3b8;
-  font-weight: 500;
+  color: #d1d5db;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .chart-line {
   position: relative;
   height: 100%;
+  width: 100%;
 }
 
 .line-point {
   position: absolute;
   transform: translate(-50%, 50%);
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.line-point:hover {
+  transform: translate(-50%, 50%) scale(1.6);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.7);
+  z-index: 20;
+}
+
+.point-label,
+.point-value {
+  position: absolute;
+  font-size: 0.75rem;
+  color: #f9fafb;
+  white-space: nowrap;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .point-label {
-  position: absolute;
-  top: -20px;
-  font-size: 0.8rem;
-  color: #94a3b8;
-  font-weight: 500;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(16, 185, 129, 0.9);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 700;
 }
 
 .point-value {
-  position: absolute;
-  top: 20px;
-  font-size: 0.8rem;
-  color: #e2e8f0;
-  font-weight: 600;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
 }
 
 /* Insights Section */
@@ -790,6 +836,58 @@
   .line-chart {
     height: 150px;
   }
+}
+
+/* Professional Presentation Enhancements */
+.section-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.indicator-item {
+  transition: all 0.3s ease;
+}
+
+.indicator-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.charts-wrapper {
+  transition: all 0.3s ease;
+}
+
+.charts-wrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+}
+
+.insights-text pre {
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.3);
+}
+
+.insights-text pre::-webkit-scrollbar {
+  width: 8px;
+}
+
+.insights-text pre::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.1);
+}
+
+.insights-text pre::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.5);
+  border-radius: 4px;
 }
 
 /* Animations */

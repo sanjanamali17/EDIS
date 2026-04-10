@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Charts from "../components/Charts";
 import "../styles/ecosystem_command_center.css";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
@@ -104,13 +105,15 @@ export default function EcosystemAnalysis({ setActive }) {
       const calculatedESI = Object.entries(indicatorResults).reduce((sum, [key, value]) => {
         return sum + (value * ESI_WEIGHTS[key]);
       }, 0);
+      
+      // Set ESI - single source of truth
       setEsi(calculatedESI);
       console.log("Calculated ESI:", calculatedESI);
 
       // Step 4: Generate historical data for line chart
       generateHistoricalData(calculatedESI);
 
-      // Step 5: Generate AI insights
+      // Step 5: Generate AI insights using same ESI value
       await generateInsights(location, indicatorResults, calculatedESI);
 
       setAnalysisComplete(true);
@@ -146,6 +149,7 @@ export default function EcosystemAnalysis({ setActive }) {
         
         setIndicators(sampleIndicators);
         
+        // Use same ESI calculation logic
         const sampleESI = Object.entries(sampleIndicators).reduce((sum, [key, value]) => {
           return sum + (value * ESI_WEIGHTS[key]);
         }, 0);
@@ -227,77 +231,166 @@ export default function EcosystemAnalysis({ setActive }) {
   };
 
   const generateFallbackInsights = (city, indicatorData, esiValue) => {
-    const status = esiValue < 30 ? "Healthy" : esiValue < 60 ? "Moderate Stress" : "High Stress";
-    const highestStress = Object.entries(indicatorData).reduce((max, [key, value]) => 
-      value > max.value ? { key, value } : max, { key: "", value: 0 });
+    // Extract indicator values for structured analysis
+    const climateStress = indicatorData.climate_stress || 0;
+    const soilStress = indicatorData.soil_stress || 0;
+    const vegetationStress = indicatorData.vegetation_stress || 0;
+    const humanPressure = indicatorData.human_pressure || 0;
+    const biodiversityStress = indicatorData.biodiversity_stress || 0;
+
+    // Determine stress levels for each indicator
+    const getStressLevel = (value) => {
+      if (value <= 30) return "Low";
+      if (value <= 60) return "Moderate";
+      return "High";
+    };
+
+    const climateStressLevel = getStressLevel(climateStress);
+    const soilStressLevel = getStressLevel(soilStress);
+    const vegetationStressLevel = getStressLevel(vegetationStress);
+    const humanPressureLevel = getStressLevel(humanPressure);
+    const biodiversityStressLevel = getStressLevel(biodiversityStress);
+
+    // Overall ecosystem status
+    const overallStatus = esiValue < 30 ? "Healthy Ecosystem" : esiValue < 60 ? "Moderate Stress" : "High Stress";
+    const priorityLevel = esiValue > 60 ? "CRITICAL" : esiValue > 30 ? "MODERATE" : "LOW";
 
     return `
-## Environmental Summary
+# 🌍 ECOSYSTEM ANALYSIS REPORT
 
-The ecosystem monitoring system for ${city} reports a **${status.toLowerCase()}** condition with an Ecosystem Stress Index of **${esiValue.toFixed(1)}%**. The primary stress factor is **${highestStress.key.replace(/_/g, ' ')}** at **${highestStress.value.toFixed(1)}%**, indicating areas requiring immediate attention.
+## 📊 ECOSYSTEM SUMMARY
 
-## Key Environmental Risks
+**Location**: ${city}  
+**Overall Ecosystem Stress Index**: ${esiValue.toFixed(1)}%  
+**Ecosystem Status**: ${overallStatus}  
+**Priority Level**: ${priorityLevel}  
+**Analysis Date**: ${new Date().toLocaleDateString()}
 
+---
+
+## 📈 INDICATOR BREAKDOWN
+
+| Environmental Indicator | Current Value | Stress Level | Status |
+|---------------------|----------------|--------------|---------|
+| 🌡️ Climate Stress | ${climateStress.toFixed(1)}% | ${climateStressLevel} | ${climateStress > 60 ? '⚠️ Critical' : climateStress > 30 ? '⚡ Moderate' : '✅ Healthy'} |
+| 🌱 Soil Health | ${soilStress.toFixed(1)}% | ${soilStressLevel} | ${soilStress > 60 ? '⚠️ Critical' : soilStress > 30 ? '⚡ Moderate' : '✅ Healthy'} |
+| 🌿 Vegetation Cover | ${vegetationStress.toFixed(1)}% | ${vegetationStressLevel} | ${vegetationStress > 60 ? '⚠️ Critical' : vegetationStress > 30 ? '⚡ Moderate' : '✅ Healthy'} |
+| 🏙️ Human Impact | ${humanPressure.toFixed(1)}% | ${humanPressureLevel} | ${humanPressure > 60 ? '⚠️ Critical' : humanPressure > 30 ? '⚡ Moderate' : '✅ Healthy'} |
+| 🦋 Biodiversity Index | ${biodiversityStress.toFixed(1)}% | ${biodiversityStressLevel} | ${biodiversityStress > 60 ? '⚠️ Critical' : biodiversityStress > 30 ? '⚡ Moderate' : '✅ Healthy'} |
+
+---
+
+## 🎯 STRESS LEVELS ANALYSIS
+
+### **Critical Stress Areas (>60%)**
+${climateStress > 60 ? `• 🌡️ **Climate Stress**: Extreme weather vulnerability detected (${climateStress.toFixed(1)}%). Risk of heat waves, storms, and temperature instability affecting ecosystem stability.` : ''}
+${soilStress > 60 ? `• 🌱 **Soil Health**: Critical degradation at ${soilStress.toFixed(1)}%. Severe soil erosion, nutrient depletion, and reduced agricultural productivity threatening food security.` : ''}
+${vegetationStress > 60 ? `• 🌿 **Vegetation Cover**: Alarming deforestation trend with ${vegetationStress.toFixed(1)}% stress. Significant habitat loss and ecosystem imbalance detected.` : ''}
+${humanPressure > 60 ? `• 🏙️ **Human Impact**: Urban infrastructure overload at ${humanPressure.toFixed(1)}%. Resource depletion, pollution, and unsustainable development patterns identified.` : ''}
+${biodiversityStress > 60 ? `• 🦋 **Biodiversity**: Critical biodiversity loss at ${biodiversityStress.toFixed(1)}%. Species extinction risk and ecosystem collapse threatening environmental services.` : ''}
+
+### **Moderate Stress Areas (30-60%)**
+${climateStress > 30 && climateStress <= 60 ? `• 🌡️ **Climate Stress**: Moderate climate instability at ${climateStress.toFixed(1)}%. Weather pattern variability affecting seasonal stability and agricultural planning.` : ''}
+${soilStress > 30 && soilStress <= 60 ? `• 🌱 **Soil Health**: Declining soil health at ${soilStress.toFixed(1)}%. Fertility reduction and nutrient loss requiring intervention.` : ''}
+${vegetationStress > 30 && vegetationStress <= 60 ? `• 🌿 **Vegetation Cover**: Reduced vegetation cover at ${vegetationStress.toFixed(1)}%. Decreased carbon sequestration and habitat fragmentation affecting biodiversity.` : ''}
+${humanPressure > 30 && humanPressure <= 60 ? `• 🏙️ **Human Impact**: Growing resource consumption pressure at ${humanPressure.toFixed(1)}%. Urban expansion and development activities creating habitat fragmentation.` : ''}
+${biodiversityStress > 30 && biodiversityStress <= 60 ? `• 🦋 **Biodiversity**: Moderate biodiversity decline at ${biodiversityStress.toFixed(1)}%. Reduced ecosystem resilience and species population instability detected.` : ''}
+
+### **Healthy Areas (≤30%)**
+${climateStress <= 30 ? `• 🌡️ **Climate Stress**: Stable climate conditions at ${climateStress.toFixed(1)}%. Good weather patterns and strong ecosystem adaptation capacity.` : ''}
+${soilStress <= 30 ? `• 🌱 **Soil Health**: Healthy soil conditions at ${soilStress.toFixed(1)}%. Good fertility levels supporting sustainable agriculture and natural vegetation growth.` : ''}
+${vegetationStress <= 30 ? `• 🌿 **Vegetation Cover**: Healthy vegetation at ${vegetationStress.toFixed(1)}%. Robust plant communities providing excellent carbon storage and habitat support.` : ''}
+${humanPressure <= 30 ? `• 🏙️ **Human Impact**: Controlled human impact at ${humanPressure.toFixed(1)}%. Sustainable urban development and resource management within environmental carrying capacity.` : ''}
+${biodiversityStress <= 30 ? `• 🦋 **Biodiversity**: Rich biodiversity at ${biodiversityStress.toFixed(1)}%. Healthy species populations and stable ecosystem services supporting environmental resilience.` : ''}
+
+---
+
+## 🚀 RECOMMENDED ACTIONS
+
+### **Immediate Interventions (0-6 months)**
 ${esiValue > 60 ? `
-### Critical Risk Factors
-• **Ecosystem Degradation**: Current stress levels indicate potential ecosystem collapse
-• **Biodiversity Loss**: High stress may lead to irreversible species extinction
-• **Climate Vulnerability**: Elevated climate stress increases susceptibility to extreme weather events
-• **Water Resource Depletion**: Soil and vegetation stress suggest declining water availability
-• **Air Quality Decline**: Human pressure contributes to atmospheric pollution levels
-• **Soil Erosion**: Critical soil health impacts agricultural productivity
+• **Emergency Conservation**: Implement immediate habitat protection and restoration programs
+• **Pollution Control**: Establish strict environmental regulations and monitoring systems
+• **Public Awareness**: Launch emergency environmental protection campaigns
+• **Resource Management**: Implement water and energy conservation measures
 ` : esiValue > 30 ? `
-### Moderate Risk Factors
-• **Gradual Ecosystem Decline**: Stress levels indicate progressive environmental degradation
-• **Reduced Resilience**: Moderate stress compromises ecosystem adaptive capacity
-• **Biodiversity Pressure**: Current levels threaten species population stability
-• **Climate Sensitivity**: Elevated climate stress increases vulnerability to weather extremes
-• **Resource Management Challenges**: Human impact requires sustainable development strategies
-• **Soil Health Concerns**: Moderate degradation affects long-term agricultural viability
+• **Enhanced Monitoring**: Deploy comprehensive environmental surveillance systems
+• **Preventive Measures**: Implement pollution control and habitat protection
+• **Community Engagement**: Conduct environmental awareness and education programs
+• **Policy Development**: Create sustainable development guidelines
 ` : `
-### Low Risk Factors
-• **Stable Ecosystem Conditions**: Current stress levels indicate environmental stability
-• **Good Biodiversity**: Low stress supports healthy species populations
-• **Climate Resilience**: Minimal climate stress suggests good adaptation capacity
-• **Sustainable Resource Use**: Human impact remains within manageable limits
-• **Soil Health Maintenance**: Current levels support long-term agricultural sustainability
-• **Vegetation Stability**: Low stress indicates healthy plant communities
+• **Routine Monitoring**: Maintain standard environmental assessment protocols
+• **Conservation Maintenance**: Continue protection of existing natural areas
+• **Sustainable Practices**: Promote eco-friendly development and resource use
+• **Public Education**: Conduct regular environmental awareness programs
 `}
 
-## Recommended Actions
-
+### **Short-term Strategies (6-24 months)**
 ${esiValue > 60 ? `
-### Immediate Intervention Required
-• **Emergency Conservation Measures**: Implement immediate habitat protection and restoration programs
-• **Pollution Control Enforcement**: Establish strict environmental regulations and monitoring systems
-• **Green Infrastructure Development**: Create urban green spaces, wildlife corridors, and protected areas
-• **Water Resource Management**: Implement comprehensive water conservation and purification systems
-• **Renewable Energy Transition**: Accelerate shift to clean energy sources to reduce climate impact
-• **Community Engagement Programs**: Launch public awareness campaigns for environmental protection
-• **Policy Implementation**: Enforce environmental protection laws and sustainable development guidelines
+• **Ecosystem Restoration**: Launch comprehensive habitat recovery programs
+• **Green Infrastructure**: Develop urban green spaces and wildlife corridors
+• **Clean Energy Transition**: Accelerate renewable energy adoption
+• **Water Management**: Implement comprehensive water conservation systems
 ` : esiValue > 30 ? `
-### Preventive Conservation Strategies
-• **Enhanced Monitoring Systems**: Implement comprehensive environmental monitoring and early warning systems
-• **Sustainable Development Policies**: Promote green building standards and eco-friendly industrial practices
-• **Biodiversity Conservation**: Establish protected areas and wildlife corridors for species protection
-• **Climate Adaptation Planning**: Develop strategies to cope with climate change impacts
-• **Resource Efficiency Programs**: Implement water conservation, waste reduction, and energy efficiency initiatives
-• **Community Education**: Conduct environmental awareness programs and citizen science initiatives
-• **Green Technology Adoption**: Promote renewable energy, sustainable agriculture, and clean transportation
+• **Targeted Conservation**: Focus on high-stress indicator improvement
+• **Sustainable Development**: Promote green building and eco-friendly practices
+• **Biodiversity Protection**: Establish protected areas and wildlife corridors
+• **Climate Adaptation**: Develop strategies for environmental changes
 ` : `
-### Maintenance and Optimization
-• **Continued Monitoring**: Maintain regular ecosystem health assessments and biodiversity surveys
-• **Sustainable Practices**: Support organic farming, renewable energy, and conservation agriculture
-• **Environmental Education**: Integrate environmental awareness into school curricula and public programs
-• **Green Infrastructure**: Expand urban green spaces, parks, and recreational areas
-• **Climate Resilience**: Develop climate adaptation strategies and disaster preparedness plans
-• **Community Involvement**: Encourage citizen participation in environmental monitoring and conservation
-• **Technology Integration**: Utilize IoT sensors and data analytics for real-time environmental monitoring
+• **Maintenance Programs**: Continue ecosystem health monitoring
+• **Sustainable Agriculture**: Support organic farming and soil conservation
+• **Green Technology**: Promote clean energy and environmental tech
+• **Community Involvement**: Encourage citizen participation in conservation
 `}
 
-## Command Center Recommendations
+### **Long-term Plans (2+ years)**
+${esiValue > 60 ? `
+• **Comprehensive Restoration**: Full ecosystem recovery and rehabilitation
+• **Policy Implementation**: Enforce strict environmental protection laws
+• **Technology Integration**: Deploy advanced environmental monitoring systems
+• **International Cooperation**: Seek global environmental partnerships
+` : esiValue > 30 ? `
+• **Ecosystem Resilience**: Build adaptive capacity for environmental changes
+• **Sustainable Growth**: Balance development with environmental protection
+• **Climate Resilience**: Develop long-term climate adaptation strategies
+• **Biodiversity Conservation**: Maintain and enhance species protection programs
+` : `
+• **Sustainable Management**: Maintain balanced ecosystem health
+• **Continuous Improvement**: Ongoing optimization of environmental practices
+• **Technology Integration**: Utilize smart environmental monitoring systems
+• **Community Sustainability**: Promote long-term environmental stewardship
+`}
 
-The Environmental Intelligence Command Center recommends **${esiValue > 60 ? 'immediate deployment of emergency response protocols' : esiValue > 30 ? 'implementation of preventive conservation measures' : 'maintenance of current environmental protection strategies'}** for ${city}. Continuous monitoring and adaptive management are essential for maintaining ecosystem health and preventing further environmental degradation.
+---
+
+## 📈 SUCCESS METRICS
+
+### **Targets for ${city}**
+- **ESI Reduction Goal**: ${esiValue > 60 ? `Reduce ESI from ${esiValue.toFixed(1)}% to below 40% within 12 months through aggressive conservation measures` : esiValue > 30 ? `Reduce ESI from ${esiValue.toFixed(1)}% to below 25% within 18 months through targeted environmental programs` : `Maintain current healthy ESI of ${esiValue.toFixed(1)}% through continued sustainable practices`}
+- **Climate Stability**: ${climateStress > 30 ? `Reduce climate stress from ${climateStress.toFixed(1)}% to below 25% through renewable energy adoption and emissions reduction` : `Maintain stable climate conditions at ${climateStress.toFixed(1)}% through current environmental policies`}
+- **Soil Health Improvement**: ${soilStress > 30 ? `Improve soil health from ${soilStress.toFixed(1)}% to above 70% health index through organic farming and soil conservation` : `Maintain healthy soil conditions at ${soilStress.toFixed(1)}% through sustainable agricultural practices`}
+- **Vegetation Enhancement**: ${vegetationStress > 30 ? `Increase vegetation cover from ${vegetationStress.toFixed(1)}% to above 80% through reforestation and habitat restoration` : `Preserve healthy vegetation levels at ${vegetationStress.toFixed(1)}% through protected area management`}
+- **Human Impact Management**: ${humanPressure > 30 ? `Reduce human pressure from ${humanPressure.toFixed(1)}% to below 25% through sustainable urban planning and green infrastructure` : `Maintain controlled human impact at ${humanPressure.toFixed(1)}% through current development policies`}
+- **Biodiversity Protection**: ${biodiversityStress > 30 ? `Increase biodiversity index from ${biodiversityStress.toFixed(1)}% to above 75% through habitat creation and species protection` : `Maintain rich biodiversity at ${biodiversityStress.toFixed(1)}% through conservation programs`}
+
+### **Monitoring Schedule**
+- **Daily**: Real-time environmental sensor data analysis
+- **Weekly**: Ecosystem health assessments and trend analysis
+- **Monthly**: Comprehensive biodiversity surveys and habitat evaluations
+- **Quarterly**: Environmental impact assessments and strategy reviews
+- **Annually**: Full ecosystem health reports and conservation planning
+
+---
+
+## 🎯 CONCLUSION
+
+The ecosystem analysis for **${city}** indicates **${overallStatus.toLowerCase()}** with an Ecosystem Stress Index of **${esiValue.toFixed(1)}%**. 
+
+${esiValue > 60 ? 'Immediate action is required to prevent irreversible environmental damage. The current trajectory poses significant risks to biodiversity, climate stability, and human well-being.' : 
+ esiValue > 30 ? 'Proactive measures are recommended to prevent further ecosystem degradation. Current stress levels indicate the need for targeted conservation efforts and sustainable development practices.' :
+ 'The ecosystem shows healthy conditions with stable environmental indicators. Continued monitoring and sustainable practices will help maintain current ecosystem health and prevent future degradation.'}
+
+**Priority**: Implement the recommended actions according to the **${priorityLevel}** priority level to ensure long-term environmental sustainability for ${city}.
     `.trim();
   };
 
@@ -539,86 +632,9 @@ Environmental Intelligence Command Center
                 <span className="viz-status">Real-time Data</span>
               </div>
               
-              {/* Bar Chart */}
-              <div className="chart-container">
-                <h3>Indicator Analysis</h3>
-                <div className="bar-chart">
-                  {INDICATORS.map((indicator) => (
-                    <div key={indicator.key} className="bar-item">
-                      <div className="bar-label">
-                        <span>{indicator.icon}</span>
-                        <span>{indicator.name}</span>
-                      </div>
-                      <div className="bar-track">
-                        <div className="bar-fill" style={{ backgroundColor: indicator.color }}>
-                          <div className="bar-value">{indicators[indicator.key]?.toFixed(1)}%</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Radar Chart */}
-              <div className="chart-container">
-                <h3>Ecosystem Overview</h3>
-                <div className="radar-chart">
-                  <div className="radar-center">
-                    <div className="radar-value">{esi.toFixed(1)}%</div>
-                    <div className="radar-label">ESI</div>
-                  </div>
-                  {INDICATORS.map((indicator, index) => {
-                    const angle = (index * 72 - 90) * (Math.PI / 180);
-                    const radius = 100;
-                    const x = Math.cos(angle) * radius;
-                    const y = Math.sin(angle) * radius;
-                    
-                    return (
-                      <div
-                        key={indicator.key}
-                        className="radar-point"
-                        style={{
-                          left: `${50 + x}%`,
-                          top: `${50 + y}%`,
-                          backgroundColor: indicator.color
-                        }}
-                      >
-                        <span className="radar-icon">{indicator.icon}</span>
-                        <span className="radar-value">{indicators[indicator.key]?.toFixed(0)}%</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Line Chart */}
-              <div className="chart-container">
-                <h3>Historical Trends</h3>
-                <div className="line-chart">
-                  <div className="chart-grid">
-                    {[0, 25, 50, 75, 100].map(value => (
-                      <div key={value} className="grid-line" style={{ bottom: `${value}%` }}>
-                        <span className="grid-label">{value}%</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="chart-line">
-                    {historicalData.map((data, index) => (
-                      <div
-                        key={data.year}
-                        className="line-point"
-                        style={{
-                          left: `${(index / (historicalData.length - 1)) * 100}%`,
-                          bottom: `${data.esi}%`,
-                          backgroundColor: ecosystemStatus.color
-                        }}
-                      >
-                        <span className="point-label">{data.year}</span>
-                        <span className="point-value">{data.esi.toFixed(1)}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {/* Professional Charts */}
+              <div className="charts-wrapper">
+                <Charts indices={indicators} historicalData={historicalData} />
               </div>
             </div>
           </motion.div>
@@ -637,15 +653,22 @@ Environmental Intelligence Command Center
               </div>
               <div className="insights-content">
                 <div className="insights-text">
-                  {insights.split('\n').map((paragraph, index) => {
-                    if (paragraph.startsWith('##')) {
-                      return <h3 key={index}>{paragraph.replace('##', '')}</h3>;
-                    }
-                    if (paragraph.startsWith('###')) {
-                      return <h4 key={index}>{paragraph.replace('###', '')}</h4>;
-                    }
-                    return <p key={index}>{paragraph}</p>;
-                  })}
+                  <pre style={{ 
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'break-word',
+                    fontFamily: 'monospace',
+                    fontSize: '0.9rem',
+                    lineHeight: '1.6',
+                    color: '#e2e8f0',
+                    margin: '0',
+                    padding: '1rem',
+                    background: 'rgba(15, 23, 42, 0.3)',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(16, 185, 129, 0.2)',
+                    overflowX: 'auto'
+                  }}>
+                    {insights}
+                  </pre>
                 </div>
               </div>
             </div>

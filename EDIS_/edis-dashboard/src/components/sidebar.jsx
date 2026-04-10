@@ -12,15 +12,24 @@ export default function Sidebar({ active, setActive }) {
 
   return (
     <div className="sidebar">
-      <motion.h1
+      {/* Clean Program Header */}
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        className="program-header"
       >
-        EDIS
-      </motion.h1>
+        <div className="program-name-container">
+          <h1 className="program-name">EDIS</h1>
+        </div>
+        <div className="guide-section">
+          <div className="guide-label">Environmental Intelligence</div>
+          <div className="guide-name">Command Center</div>
+        </div>
+      </motion.div>
 
-      <nav>
+      {/* Navigation Menu */}
+      <nav className="navigation-menu">
         {menu.map((item) => (
           <motion.button
             key={item.id}
@@ -35,7 +44,11 @@ export default function Sidebar({ active, setActive }) {
         ))}
       </nav>
 
-      <p>© 2026 EDIS</p>
+      {/* Clean Footer */}
+      <div className="credits-footer">
+        <div className="credits-divider"></div>
+        <div className="copyright">© 2026 EDIS</div>
+      </div>
     </div>
   );
 }

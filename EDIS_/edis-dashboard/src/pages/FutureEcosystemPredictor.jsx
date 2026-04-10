@@ -203,31 +203,94 @@ const FutureEcosystemPredictor = () => {
       mse: 2.3
     });
     
+    // Generate dynamic insights based on prediction trends
+    const lastPrediction = samplePredictions[samplePredictions.length - 1];
+    const trendDirection = lastPrediction.esi > baseESI ? 'increasing' : 'improving';
+    const trendMagnitude = Math.abs(lastPrediction.esi - baseESI);
+    
+    let environmentalChanges = [];
+    let potentialRisks = [];
+    let recommendedActions = [];
+    
+    if (trendDirection === 'increasing' && trendMagnitude > 5) {
+      environmentalChanges = [
+        'Rising ecosystem stress levels',
+        'Accelerating environmental degradation',
+        'Climate stress intensification'
+      ];
+      potentialRisks = [
+        'Ecosystem collapse risk',
+        'Biodiversity loss acceleration',
+        'Critical resource depletion'
+      ];
+      recommendedActions = [
+        'Immediate intervention required',
+        'Emergency conservation measures',
+        'Climate adaptation implementation'
+      ];
+    } else if (trendDirection === 'increasing') {
+      environmentalChanges = [
+        'Gradual ecosystem stress increase',
+        'Environmental pressure buildup',
+        'Climate variability effects'
+      ];
+      potentialRisks = [
+        'Ecosystem service decline',
+        'Habitat quality reduction',
+        'Resource sustainability challenges'
+      ];
+      recommendedActions = [
+        'Implement conservation programs',
+        'Enhance monitoring systems',
+        'Develop sustainability strategies'
+      ];
+    } else if (trendDirection === 'improving' && trendMagnitude > 5) {
+      environmentalChanges = [
+        'Significant ecosystem recovery',
+        'Environmental health improvement',
+        'Stress reduction across indicators'
+      ];
+      potentialRisks = [
+        'Continued monitoring needed',
+        'Maintain conservation efforts',
+        'Prevent complacency'
+      ];
+      recommendedActions = [
+        'Continue successful policies',
+        'Expand protected areas',
+        'Invest in green technology'
+      ];
+    } else {
+      environmentalChanges = [
+        'Stable ecosystem conditions',
+        'Environmental equilibrium',
+        'Balanced indicator performance'
+      ];
+      potentialRisks = [
+        'External pressure factors',
+        'Climate change impacts',
+        'Human activity effects'
+      ];
+      recommendedActions = [
+        'Maintain current practices',
+        'Enhance resilience measures',
+        'Prepare for future challenges'
+      ];
+    }
+
     setInsights({
       success: true,
       city: selectedCity,
       trend_summary: {
         current_esi: baseESI,
-        future_esi: samplePredictions[samplePredictions.length - 1].esi,
-        direction: 'declining',
-        change_magnitude: samplePredictions[samplePredictions.length - 1].esi - baseESI
+        future_esi: lastPrediction.esi,
+        direction: trendDirection,
+        change_magnitude: trendMagnitude
       },
       structured_analysis: {
-        environmental_changes: [
-          'Climate instability increasing',
-          'Vegetation stress rising',
-          'Human pressure growing'
-        ],
-        potential_risks: [
-          'Urban heat island expansion',
-          'Water scarcity',
-          'Soil degradation'
-        ],
-        recommended_actions: [
-          'Increase green cover',
-          'Protect groundwater',
-          'Promote sustainable agriculture'
-        ]
+        environmental_changes: environmentalChanges,
+        potential_risks: potentialRisks,
+        recommended_actions: recommendedActions
       }
     });
   };
