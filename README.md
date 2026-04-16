@@ -45,7 +45,6 @@ ESI = (Climate Stress × 0.25) +
 
 ### **🔍 Ecosystem Analysis**
 - **Real-time environmental monitoring** for any location
-- **Professional command center dashboard** with live indicators
 - **Comprehensive ESI calculation** with weighted scoring
 - **Interactive data visualizations** (bar, radar, line charts)
 - **AI environmental insights** with risk assessment
@@ -55,7 +54,6 @@ ESI = (Climate Stress × 0.25) +
 - **Interactive India map** with 10+ major cities
 - **Color-coded ecosystem health** indicators
 - **Click-to-explore** detailed city environmental data
-- **Real-time stress visualization** across regions
 - **Geospatial analysis** of environmental patterns
 
 ### **🤖 AI Environmental Assistant**
@@ -65,26 +63,15 @@ ESI = (Climate Stress × 0.25) +
 - **Groq-powered LLaMA models** for advanced AI
 - **Fallback intelligence** when API is unavailable
 
-### **🎮 Scenario Simulator**
-- **Interactive environmental modeling** and simulation
-- **What-if analysis** for ecosystem changes
-- **Impact assessment** of environmental interventions
-- **Real-time visualization** of scenario outcomes
-- **Educational tool** for environmental understanding
-
 ### **🔮 Future Ecosystem Predictor**
 - **Machine learning predictions** for ecosystem health
-- **6-year historical trend analysis** (2019-2024)
 - **Future forecasting** with confidence intervals
 - **Risk assessment** for environmental planning
-- **Predictive analytics** for policy decisions
-
 
 ### **📄 Environmental Report Generator**
 - **Comprehensive environmental reports** in PDF/text format
 - **Executive summaries** for decision-makers
-- **Technical appendices** for researchers
-- **Actionable recommendations** for stakeholders
+- **Actionable recommendations** for stakeholders through EDIS Assistant
 - **Automated report generation** with one click
 
 ---
@@ -161,55 +148,6 @@ EDIS/
         │   └── 📂 styles/      # CSS styling
         └── 📂 public/          # Static assets
 ```
-
----
-
-## 🌍 Live Demo
-
-**🚀 Deployed Application**: [https://edis.vercel.app](https://edis.vercel.app)
-
-**📊 Backend API**: [https://edis-backend.onrender.com](https://edis-backend.onrender.com)
-
----
-
-## 🚀 Deployment Instructions
-
-### **Backend Deployment (Render)**
-1. **Connect GitHub Repository** to [Render](https://render.com/)
-2. **Select Repository**: `sanjanamali17/EDIS`
-3. **Configure Service**:
-   - **Environment**: Python
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port 10000`
-   - **Health Check**: `/health`
-4. **Set Environment Variables**:
-   - `GROQ_API_KEY`: Your Groq API key
-   - `DEBUG`: `false`
-5. **Deploy**: Click "Create Web Service"
-
-### **Frontend Deployment (Vercel)**
-1. **Connect GitHub Repository** to [Vercel](https://vercel.com/)
-2. **Import Repository**: `sanjanamali17/EDIS`
-3. **Configure Build**:
-   - **Framework**: Vite
-   - **Root Directory**: `EDIS_/edis-dashboard`
-   - **Build Command**: `npm install && npm run build`
-   - **Output Directory**: `dist`
-4. **Set Environment Variables**:
-   - `VITE_API_URL`: `https://edis-backend.onrender.com/api`
-5. **Deploy**: Click "Deploy"
-
-### **Environment Variables Required**
-```bash
-# Backend (Render)
-GROQ_API_KEY=your_groq_api_key
-DEBUG=false
-
-# Frontend (Vercel)
-VITE_API_URL=https://edis-backend.onrender.com/api
-```
-
----
 
 ## 💡 Example Usage
 

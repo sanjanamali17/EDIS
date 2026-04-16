@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaInfoCircle, FaChartLine, FaRobot, FaMap, FaEye } from "react-icons/fa";
+import { FaInfoCircle, FaChartLine, FaRobot, FaMap, FaEye, FaGraduationCap, FaUserTie, FaHandshake } from "react-icons/fa";
 
 export default function Sidebar({ active, setActive }) {
   const menu = [
@@ -43,6 +43,35 @@ export default function Sidebar({ active, setActive }) {
           </motion.button>
         ))}
       </nav>
+
+      {/* Program Information Section */}
+      <div className="program-info-section">
+        <div className="program-info-divider"></div>
+        
+        <div className="program-info-item">
+          <div className="program-info-label">
+            <FaGraduationCap className="program-info-icon" />
+            Program
+          </div>
+          <div className="program-info-value">AI Career for Women</div>
+        </div>
+
+        <div className="program-info-item">
+          <div className="program-info-label">
+            <FaUserTie className="program-info-icon" />
+            Guide
+          </div>
+          <div className="program-info-value">Mr. Abdul Aziz MD</div>
+        </div>
+
+        <div className="program-info-item">
+          <div className="program-info-label">
+            <FaHandshake className="program-info-icon" />
+            Partners
+          </div>
+          <div className="program-info-value">Edunet Foundation | SAP | Microsoft</div>
+        </div>
+      </div>
 
       {/* Clean Footer */}
       <div className="credits-footer">
