@@ -14,7 +14,6 @@ from core import vegetationstress, soilhealth, humanpressure, climate, biodivers
 from api.routes import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
 
-
 # =========================================================
 # FASTAPI APP INITIALIZATION
 # =========================================================
@@ -23,9 +22,11 @@ app = FastAPI(
     description="API for vegetation, soil, human pressure, climate, biodiversity, ecosystem analysis and EDIS chatbot",
     version="1.0.0"
 )
+
+# ✅ Restrict CORS to your frontend domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://edis-frontend.azurestaticapps.net"],  # your deployed frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -52,6 +53,3 @@ def health_check():
         "version": "1.0.0",
         "service": "EDIS Backend"
     }
-
-#
-#
