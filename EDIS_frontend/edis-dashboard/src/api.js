@@ -1,10 +1,13 @@
 import axios from "axios";
 
+// Use your deployed backend URL instead of localhost
+const BASE_URL = "https://edis-backend.azurewebsites.net";
+
 export const analyzeEcosystem = (lat, lon) =>
-  axios.post("http://localhost:8000/analyze/ecosystem", {
+  axios.post(`${BASE_URL}/analyze/ecosystem`, {
     latitude: lat,
     longitude: lon,
   });
 
 export const downloadReport = () =>
-  window.open("http://localhost:8000/download/report");
+  window.open(`${BASE_URL}/download/report`);
