@@ -26,7 +26,7 @@ app = FastAPI(
 # ✅ Restrict CORS to your frontend domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://edis-frontend.azurestaticapps.net"],  # your deployed frontend URL
+    allow_origins=["https://blue-hill-018ac8300.7.azurestaticapps.net"],  # your deployed frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
