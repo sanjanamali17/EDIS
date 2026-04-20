@@ -1,0 +1,547 @@
+/* India Map Layout - Fixed Centering */
+.map-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #f8fafc;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.map-title {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  pointer-events: none;
+}
+
+.map-title h1 {
+  margin: 0 0 8px 0;
+  color: #1e293b;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.map-title p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+}
+
+.map-legend h3 {
+  margin: 0 0 12px 0;
+  color: #1e293b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.map-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: #f1f5f9;
+}
+
+/* Ensure Leaflet map fills entire viewport */
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  background: #f1f5f9;
+  position: relative !important;
+}
+
+/* Custom marker styling */
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-marker-icon {
+  border-radius: 50% !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.leaflet-marker-icon:hover {
+  transform: scale(1.2) !important;
+}
+
+/* Popup styling */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Loading and error states */
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #64748b;
+  background: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+
+.error {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .map-title {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    transform: none;
+    padding: 12px 16px;
+  }
+  
+  .map-title h1 {
+    font-size: 18px;
+  }
+  
+  .map-title p {
+    font-size: 12px;
+  }
+  
+  .map-legend {
+    bottom: 10px;
+    right: 10px;
+    padding: 12px;
+  }
+}
+
+/* India-specific map styling */
+.india-overlay {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.india-label {
+  background: rgba(30, 41, 59, 0.95);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Enhanced marker styling for India */
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Make markers more prominent on India map */
+.leaflet-marker-icon {
+  border-radius: 50% !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Enhanced popup styling for India ecosystem data */
+.popup-content {
+  min-width: 320px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-content h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.ecosystem-summary {
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.esi-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.esi-value {
+  font-weight: 700;
+  font-size: 18px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+}
+
+.esi-value.healthy-ecosystem {
+  background: #16a34a;
+}
+
+.esi-value.moderate-stress {
+  background: #f59e0b;
+}
+
+.esi-value.high-ecosystem-stress {
+  background: #dc2626;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.healthy-ecosystem {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.moderate-stress {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.high-ecosystem-stress {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.indicators-grid {
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.indicator-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+}
+
+.indicator-label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.indicator-value {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.coordinates {
+  padding: 12px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .map-wrapper {
+    margin: 10px;
+    min-height: 400px;
+  }
+  
+  .map-header {
+    padding: 16px;
+  }
+  
+  .map-header h1 {
+    font-size: 24px;
+  }
+  
+  .legend {
+    gap: 16px;
+  }
+  
+  .legend-item {
+    font-size: 12px;
+  }
+  
+  .popup-content {
+    min-width: 280px;
+  }
+  
+  .popup-content h3 {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+  
+  .ecosystem-summary {
+    padding: 12px 16px;
+  }
+  
+  .indicators-grid {
+    padding: 12px 16px;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .indicator-item {
+    padding: 6px 10px;
+  }
+  
+  .indicator-label, .indicator-value {
+    font-size: 12px;
+  }
+}
+
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-size: 18px;
+  color: #64748b;
+}
+
+.error {
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+/* Leaflet Map Styles */
+.leaflet-container {
+  background: #f1f5f9;
+  border-radius: 0;
+}
+
+/* Enhanced markers for India map */
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-marker-icon {
+  border-radius: 50% !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.leaflet-marker-icon:hover {
+  transform: scale(1.2) !important;
+}
+
+.popup-content h3 {
+  margin: 0 0 12px 0;
+  color: #1e293b;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 8px;
+}
+
+.ecosystem-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status.healthy-ecosystem {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.moderate-stress {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.high-ecosystem-stress {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.esi-value {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.indicators h4 {
+  margin: 0 0 8px 0;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.indicator:last-child {
+  border-bottom: none;
+}
+
+.indicator-name {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.indicator-value {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.coordinates {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.map-footer {
+  background: white;
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.map-footer p {
+  margin: 4px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .map-header {
+    padding: 16px;
+  }
+  
+  .map-header h1 {
+    font-size: 24px;
+  }
+  
+  .legend {
+    gap: 16px;
+  }
+  
+  .legend-item {
+    font-size: 12px;
+  }
+  
+  .popup-content {
+    min-width: 240px;
+  }
+  
+  .popup-content h3 {
+    font-size: 16px;
+  }
+  
+  .indicator-name, .indicator-value {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legend {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .map-wrapper {
+    height: 400px;
+  }
+}

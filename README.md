@@ -249,7 +249,7 @@ EDIS/
 
 - **📧 Email**: edis-support@example.com
 - **🌐 Website**: https://edis-earth.com
-- **📚 Documentation**: [Project Guide](./PROJECT_GUIDE.md)
+- **📚 Documentation**: [Project Guide][https://github.com/sanjanamali17/EDIS]
 - **🐛 Issues**: [GitHub Issues](https://github.com/edis/issues)
 
 ---
